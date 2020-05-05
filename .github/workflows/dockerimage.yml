@@ -11,7 +11,7 @@ env:
   GITHUB_REF: ${{ github.ref }} 
   IMAGE: my_image_name_2
   REGISTRY_HOSTNAME: gcr.io
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
 
 jobs:
 
