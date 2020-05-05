@@ -11,6 +11,7 @@ env:
   GITHUB_REF: ${{ github.ref }} 
   IMAGE: my_image_name_2
   REGISTRY_HOSTNAME: gcr.io
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }
 
 jobs:
 
@@ -47,7 +48,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build . --tag eu.gcr.io/"$secrets.GCP_PROJECT_ID"/${{ secrets.GCLOUD_APP_NAME }}
+        docker build . --tag eu.gcr.io/"$PROJECT_ID"/${{ secrets.GCLOUD_APP_NAME }}
 
     # Build the Docker image
     - name: Build
