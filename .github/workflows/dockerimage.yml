@@ -27,6 +27,7 @@ jobs:
         # Set up docker to authenticate
         # via gcloud command-line tool.
         gcloud auth configure-docker
+
     # Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
