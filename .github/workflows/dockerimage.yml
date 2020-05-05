@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  GITHUB_SHA: ${{ github.sha }} 
+  GITHUB_REF: ${{ github.ref }} 
+  IMAGE: [IMAGE_NAME]
+  REGISTRY_HOSTNAME: gcr.io
+
 jobs:
 
   build:
@@ -13,6 +19,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Configure docker to use the gcloud command-line tool as a credential helper
+    - run: |
+        # Set up docker to authenticate
+        # via gcloud command-line tool.
+        gcloud auth configure-docker
+    # Setup gcloud CLI
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '270.0.0'
+        service_account_key: ${{ secrets.GCR_KEY }}
+
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
