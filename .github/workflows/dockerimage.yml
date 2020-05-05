@@ -9,7 +9,7 @@ on:
 env:
   GITHUB_SHA: ${{ github.sha }} 
   GITHUB_REF: ${{ github.ref }} 
-  IMAGE: my_image_name
+  IMAGE: my_image_name_2
   REGISTRY_HOSTNAME: gcr.io
 
 jobs:
