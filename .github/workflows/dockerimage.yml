@@ -48,6 +48,7 @@ jobs:
 
     - name: Build Docker image
       run: |
+        echo $IMAGE
         echo $PROJECT_ID
         echo ${{ secrets.GCLOUD_APP_NAME }}
         docker build . --tag eu.gcr.io/"$PROJECT_ID"/${{ secrets.GCLOUD_APP_NAME }}
