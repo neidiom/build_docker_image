@@ -68,9 +68,9 @@ jobs:
       run: |
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
         echo $TAG
-        docker push "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG"
-        docker tag "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE":latest
-        docker push "$REGISTRY_HOSTNAME"/"$IMAGE":latest
+        docker push "$REGISTRY_HOSTNAME"/${{ secrets.GCP_PROJECT_ID }}/"$IMAGE":"$TAG"
+        docker tag "$REGISTRY_HOSTNAME"/${{ secrets.GCP_PROJECT_ID }}/"$IMAGE":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE":latest
+        docker push "$REGISTRY_HOSTNAME"/${{ secrets.GCP_PROJECT_ID }}/"$IMAGE":latest
 
 
 #    - name: Build the Docker image
