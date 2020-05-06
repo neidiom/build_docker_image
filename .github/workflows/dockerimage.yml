@@ -38,6 +38,7 @@ jobs:
         export_default_credentials: true
 
     - run: gcloud info
+    - run: gcloud auth list
 
     # Configure docker to use the gcloud command-line tool as a credential helper
     - run: |
