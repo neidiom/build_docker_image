@@ -54,24 +54,10 @@ jobs:
         echo ${{ secrets.GCLOUD_APP_NAME }}
         docker build . --tag eu.gcr.io/"$PROJECT_ID"/${{ secrets.GCLOUD_APP_NAME }}
 
-    # Build the Docker image
-    - name: Build
+    - name: Docker build
       run: |
-        #export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
-        export TAG=latest
-        echo $TAG
-        docker build -t "$REGISTRY_HOSTNAME"/${{ secrets.GCP_PROJECT_ID }}/"$IMAGE":"$TAG" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" .
-
-    # Push the Docker image to Google Container Registry
-    - name: Publish
-      run: |
-        export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
-        echo $TAG
-        docker push "$REGISTRY_HOSTNAME"/${{ secrets.GCP_PROJECT_ID }}/"$IMAGE":"$TAG"
-        docker tag "$REGISTRY_HOSTNAME"/${{ secrets.GCP_PROJECT_ID }}/"$IMAGE":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE":latest
-        docker push "$REGISTRY_HOSTNAME"/${{ secrets.GCP_PROJECT_ID }}/"$IMAGE":latest
+        docker build -t "asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCLOUD_APP_NAME }}:latest" .
+        docker push "asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCLOUD_APP_NAME }}:latest"
 
 
 #    - name: Build the Docker image
