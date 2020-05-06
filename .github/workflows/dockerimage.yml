@@ -57,7 +57,8 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |
-        export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
+        #export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
+        export TAG=latest
         echo $TAG
         docker build -t "$REGISTRY_HOSTNAME"/${{ secrets.GCP_PROJECT_ID }}/"$IMAGE":"$TAG" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
