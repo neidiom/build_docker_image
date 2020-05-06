@@ -74,3 +74,10 @@ jobs:
 
 #    - name: Build the Docker image
 #      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+
+#- name: Docker build
+#          commands:
+#            # Replace with your GCP Project ID
+#            - docker build -t "asia.gcr.io/YOUR_GCP_PROJECT_ID/semaphore-example:${SEMAPHORE_GIT_SHA:0:7}" .
+#            - docker push "asia.gcr.io/GCP_PROJECT_ID/semaphore-example:${SEMAPHORE_GIT_SHA:0:7}"
