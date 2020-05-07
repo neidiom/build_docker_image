@@ -1,9 +1,6 @@
 
 on: [push]
 
-env:
-  REGISTRY_HOSTNAME: filialfinder.azurecr.io
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,11 +9,11 @@ jobs:
    
     - uses: azure/container-actions/docker-login@master
       with:
-        login-server: ${REGISTRY_HOSTNAME}
+        login-server: ${{ secrets.REGISTRY_HOSTNAME }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
    
     - run: |
         echo ${{ REGISTRY_HOSTNAME }}
-        docker build . -t ${{ REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
-        docker push ${{ REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
+        docker build . -t ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
+        docker push ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
