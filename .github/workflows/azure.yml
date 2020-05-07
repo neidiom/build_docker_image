@@ -17,5 +17,6 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
    
     - run: |
+        echo ${{ REGISTRY_HOSTNAME }}
         docker build . -t ${{ REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
         docker push ${{ REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
