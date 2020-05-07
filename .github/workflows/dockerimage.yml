@@ -47,18 +47,18 @@ jobs:
         gcloud auth configure-docker
 
 
-    - name: Build Docker image
-      run: |
-        echo $IMAGE
-        echo $PROJECT_ID
-        echo ${{ secrets.GCLOUD_APP_NAME }}
-        docker build . --tag eu.gcr.io/"$PROJECT_ID"/${{ secrets.GCLOUD_APP_NAME }}
+#    - name: Build Docker image
+#      run: |
+#        echo $IMAGE
+#        echo $PROJECT_ID
+#        echo ${{ secrets.GCLOUD_APP_NAME }}
+#        docker build . --tag ${{ REGISTRY_HOSTNAME }}/"$PROJECT_ID"/${{ secrets.GCLOUD_APP_NAME }}
 
     - name: Docker build
       run: |
         export TAG=$(date +%s)
-        docker build -t "asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCLOUD_APP_NAME }}:${TAG}" .
-        docker push "asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCLOUD_APP_NAME }}:${TAG}"
+        docker build -t "${{ REGISTRY_HOSTNAME }}/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCLOUD_APP_NAME }}:${TAG}" .
+        docker push "${{ REGISTRY_HOSTNAME }}/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCLOUD_APP_NAME }}:${TAG}"
 
 
 #    - name: Build the Docker image
