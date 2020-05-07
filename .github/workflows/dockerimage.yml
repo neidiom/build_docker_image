@@ -12,7 +12,6 @@ env:
   IMAGE: my_image_name_2
   REGISTRY_HOSTNAME: gcr.io
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  TAG: $(date +%s)
 
 jobs:
 
@@ -57,6 +56,7 @@ jobs:
 
     - name: Docker build
       run: |
+        export TAG=$(date +%s)
         docker build -t "asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCLOUD_APP_NAME }}:${TAG}" .
         docker push "asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCLOUD_APP_NAME }}:${TAG}"
 
