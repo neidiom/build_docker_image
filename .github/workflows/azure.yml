@@ -12,7 +12,7 @@ jobs:
    
     - uses: azure/container-actions/docker-login@master
       with:
-        login-server: ${{ REGISTRY_HOSTNAME }}
+        login-server: $REGISTRY_HOSTNAME
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
    
