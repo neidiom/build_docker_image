@@ -23,6 +23,9 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
 
+    - run: |
+        ls -al ~/caches
+
     - name: Build and save docker image 
       run: |
         if [ ! -f ~/caches/images.tar ]; then
