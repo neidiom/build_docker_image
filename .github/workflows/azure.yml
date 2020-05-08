@@ -12,6 +12,14 @@ jobs:
         login-server: ${{ secrets.REGISTRY_HOSTNAME }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - name: Cache docker image of
+      uses: actions/cache@v1
+      with:
+        path: ~/caches
+        key: ${{ runner.os }}-build-${{ hashFiles('Dockerfile') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ hashFiles('Dockerfile') }}
    
     - run: |
         docker build . -t ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
