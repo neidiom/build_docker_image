@@ -24,7 +24,7 @@ jobs:
     - name: Build and save docker image 
       run: |
         if [ ! -f ~/caches/images.tar ]; then
-          docker build -t ff-finder . && \
+          docker build -t filialfinder . && \
           mkdir -p ~/caches && \
           echo 'tar start'
           docker save filialfinder -o ~/caches/images.tar
