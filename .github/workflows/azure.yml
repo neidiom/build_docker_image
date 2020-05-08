@@ -23,9 +23,6 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
 
-    - run: |
-        ls -al ~/caches
-
     - name: Build and save docker image 
       run: |
         if [ ! -f ~/caches/images.tar ]; then
@@ -35,6 +32,10 @@ jobs:
           docker save filialfinder -o ~/caches/images.tar
           echo 'tar finish'
         fi
+
+
+    - run: |
+        ls -al ~/caches
    
     - run: |
         docker build . -t ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
