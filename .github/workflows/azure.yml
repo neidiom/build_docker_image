@@ -38,3 +38,20 @@ jobs:
   run:
     needs: build
     runs-on: ubuntu-latest
+
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Cache restore
+      uses: actions/cache@v1
+      with:
+        path: ~/caches
+        key: ${{ runner.os }}-build-v3-after-${{ hashFiles('Dockerfile') }}
+        restore-keys: |
+          ${{ runner.os }}-build-v3-${{ hashFiles('Dockerfile') }}
+
+    - name: Docker load
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: | 
+        docker load -q -i ~/caches/images.tar
