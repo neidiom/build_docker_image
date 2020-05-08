@@ -17,10 +17,10 @@ jobs:
       uses: actions/cache@v1
       with:
         path: ~/caches
-        key: ${{ runner.os }}-build-${{ hashFiles('Dockerfile') }}
+        key: ${{ runner.os }}-build-doc-${{ hashFiles('Dockerfile') }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ hashFiles('Dockerfile') }}
-          ${{ runner.os }}-build-
+          ${{ runner.os }}-build-doc-${{ hashFiles('Dockerfile') }}
+          ${{ runner.os }}-build-doc-
           ${{ runner.os }}-
 
     - name: Build and save docker image 
