@@ -20,6 +20,16 @@ jobs:
         key: ${{ runner.os }}-build-${{ hashFiles('Dockerfile') }}
         restore-keys: |
           ${{ runner.os }}-build-${{ hashFiles('Dockerfile') }}
+
+    - name: Build and save docker image 
+      run: |
+        if [ ! -f ~/caches/images.tar ]; then
+          docker build -t ff-finder . && \
+          mkdir -p ~/caches && \
+          echo 'tar start'
+          docker save filialfinder -o ~/caches/images.tar
+          echo 'tar finish'
+        fi
    
     - run: |
         docker build . -t ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
