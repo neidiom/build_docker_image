@@ -20,6 +20,8 @@ jobs:
         key: ${{ runner.os }}-build-${{ hashFiles('Dockerfile') }}
         restore-keys: |
           ${{ runner.os }}-build-${{ hashFiles('Dockerfile') }}
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
 
     - name: Build and save docker image 
       run: |
@@ -39,7 +41,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
 
-
     steps:
     - uses: actions/checkout@v1
 
@@ -50,6 +51,8 @@ jobs:
         key: ${{ runner.os }}-build-v3-after-${{ hashFiles('Dockerfile') }}
         restore-keys: |
           ${{ runner.os }}-build-v3-${{ hashFiles('Dockerfile') }}
+          ${{ runner.os }}-build-v3-
+          ${{ runner.os }}-
 
     - name: Docker load
       if: steps.cache.outputs.cache-hit != 'true'
