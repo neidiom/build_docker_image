@@ -36,6 +36,7 @@ jobs:
 
     - run: |
         ls -al ~/caches
+        du -hs ~/caches/*
    
     - run: |
         docker build . -t ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
