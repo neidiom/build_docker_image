@@ -13,10 +13,10 @@ jobs:
       uses: actions/cache@v1
       with:
         path: ~/caches
-        key: ${{ runner.os }}-build-doc-${{ hashFiles('Dockerfile') }}
+        key: ${{ runner.os }}-build-${{ hashFiles('Dockerfile') }}
         restore-keys: |
-          ${{ runner.os }}-build-doc-${{ hashFiles('Dockerfile') }}
-          ${{ runner.os }}-build-doc-
+          ${{ runner.os }}-build-${{ hashFiles('Dockerfile') }}
+          ${{ runner.os }}-build-
           ${{ runner.os }}-
   build:
     needs: setup
@@ -36,7 +36,7 @@ jobs:
     - name: Build and save docker image 
       run: |
         if [ ! -f ~/caches/images.tar ]; then
-          docker build -t filialfinder . && \
+          docker build . -t ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }} && \
           mkdir -p ~/caches && \
           echo 'tar start'
           docker save filialfinder -o ~/caches/images.tar
@@ -48,8 +48,7 @@ jobs:
         du -hs ~/caches/*
    
     - run: |
-        docker build . -t ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
-        docker push ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
+
 
   run:
     needs: build
@@ -65,11 +64,12 @@ jobs:
         path: ~/caches
         key: ${{ runner.os }}-build-v3-after-${{ hashFiles('Dockerfile') }}
         restore-keys: |
-          ${{ runner.os }}-build-v3-${{ hashFiles('Dockerfile') }}
-          ${{ runner.os }}-build-v3-
+          ${{ runner.os }}-build-${{ hashFiles('Dockerfile') }}
+          ${{ runner.os }}-build-
           ${{ runner.os }}-
 
     - name: Docker load
       if: steps.cache.outputs.cache-hit != 'true'
       run: | 
         docker load -q -i ~/caches/images.tar
+        docker push ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
