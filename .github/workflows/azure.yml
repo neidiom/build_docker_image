@@ -9,13 +9,6 @@ jobs:
     - name: Running an action for checking out a repository
       uses: actions/checkout@master
 
-    - name: Login to Azure container registry
-      uses: azure/container-actions/docker-login@master
-      with:
-        login-server: ${{ secrets.REGISTRY_HOSTNAME }}
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
-
     - name: Setup Cache
       uses: actions/cache@v1
       with:
