@@ -2,18 +2,19 @@
 on: [push]
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
     steps:
+
     - uses: actions/checkout@master
-   
+
+    - name: Login to Azure container registry
     - uses: azure/container-actions/docker-login@master
       with:
         login-server: ${{ secrets.REGISTRY_HOSTNAME }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-
-    - name: Cache docker image of tes
+    - name: Setup Cache
       uses: actions/cache@v1
       with:
         path: ~/caches
@@ -22,7 +23,10 @@ jobs:
           ${{ runner.os }}-build-doc-${{ hashFiles('Dockerfile') }}
           ${{ runner.os }}-build-doc-
           ${{ runner.os }}-
-
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
     - name: Build and save docker image 
       run: |
         if [ ! -f ~/caches/images.tar ]; then
@@ -32,7 +36,6 @@ jobs:
           docker save filialfinder -o ~/caches/images.tar
           echo 'tar finish'
         fi
-
 
     - run: |
         ls -al ~/caches
