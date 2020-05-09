@@ -39,16 +39,13 @@ jobs:
           docker build . -t ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }} && \
           mkdir -p ~/caches && \
           echo 'tar start'
-          docker save filialfinder -o ~/caches/images.tar
+          docker save ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }} -o ~/caches/images.tar
           echo 'tar finish'
         fi
 
     - run: |
         ls -al ~/caches
         du -hs ~/caches/*
-   
-    - run: |
-
 
   run:
     needs: build
