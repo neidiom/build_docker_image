@@ -6,7 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - uses: actions/checkout@master
+    - name: Running an action for checking out a repository
+      uses: actions/checkout@master
 
     - name: Login to Azure container registry
       uses: azure/container-actions/docker-login@master
