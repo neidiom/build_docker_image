@@ -59,6 +59,7 @@ jobs:
       run: |
         if [ ! -f ~/caches/images.tar ]; then
           docker build . -t ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }} && \
+          docker images && \
           mkdir -p ~/caches && \
           echo 'tar start'
           docker save ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }} -o ~/caches/images.tar
@@ -72,4 +73,5 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: | 
         docker load -q -i ~/caches/images.tar
+        docker images
         docker push ${{ secrets.REGISTRY_HOSTNAME }}/filialfinder:${{ github.sha }}
