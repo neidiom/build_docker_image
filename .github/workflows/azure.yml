@@ -15,6 +15,7 @@ jobs:
         login-server: ${{ secrets.REGISTRY_HOSTNAME }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
+
     - name: Setup Cache
       uses: actions/cache@v1
       with:
@@ -28,6 +29,10 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+
+    - name: Running an action for checking out a repository
+      uses: actions/checkout@master
+
     - name: Build and save docker image 
       run: |
         if [ ! -f ~/caches/images.tar ]; then
@@ -49,9 +54,10 @@ jobs:
   run:
     needs: build
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
+
+    - name: Running an action for checking out a repository
+      uses: actions/checkout@master
 
     - name: Cache restore
       uses: actions/cache@v1
