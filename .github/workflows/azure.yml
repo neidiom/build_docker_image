@@ -9,7 +9,7 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Login to Azure container registry
-    - uses: azure/container-actions/docker-login@master
+      uses: azure/container-actions/docker-login@master
       with:
         login-server: ${{ secrets.REGISTRY_HOSTNAME }}
         username: ${{ secrets.REGISTRY_USERNAME }}
